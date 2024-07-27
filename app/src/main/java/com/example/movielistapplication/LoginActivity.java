@@ -1,6 +1,9 @@
 package com.example.movielistapplication;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,7 +21,26 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+        /**
+         * Wires button to be clicked and send you to the user's landing page (MainActivity)
+         * TODO: temporary solution until we create users and database to verify user on login.
+         */
+        binding.loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext());
+                startActivity(intent);
+
+            }
+        });
+
     }
+
+    static Intent loginIntentFactory(Context context){
+        return new Intent(context, LoginActivity.class);
+    }
+
 
 
 }
