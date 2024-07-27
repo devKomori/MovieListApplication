@@ -2,4 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    Main background color
+    <color name="main_color">#0b1622</color>
+    Button color
+    <color name="bright_blue_Button">#3577ff</color>
+    EditText color
+    <color name="dark_blue_editText">#151f2e</color>
+
 </resources>
