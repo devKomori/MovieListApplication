@@ -5,5 +5,9 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.MovieListApplication" parent="Base.Theme.MovieListApplication" />
+
+    <style name="Theme.MovieListApplication" parent="Base.Theme.MovieListApplication" >
+        <item name="android:windowBackground">@color/main_color</item>
+    </style>
+
 </resources>
