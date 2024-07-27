@@ -22,8 +22,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
-        /**
-         * Wires button to be clicked and send you to the user's landing page (MainActivity)
+        /*
+         * Allows button to be pushed and sends you to the user's landing page.
          * TODO: temporary solution until we create users and database to verify user on login.
          */
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
@@ -37,6 +37,8 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+
+     /* Factory method to create an intent to go to the LoginActivity */
     static Intent loginIntentFactory(Context context){
         return new Intent(context, LoginActivity.class);
     }

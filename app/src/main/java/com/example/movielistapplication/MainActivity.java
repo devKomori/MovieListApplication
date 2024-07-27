@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /* Factory method to create an intent to go to the MainActivity */
     static Intent mainActivityIntentFactory(Context context){
         return new Intent(context, MainActivity.class);
     }
