@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MovieListApplication</string>
+    <string name="sign_in">Sign In</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+
+    // Sets the "Create an account" text to the color set here instead of the color inside the TextView
+    <string name="not_registered_text">Not registered? <font color="#3577ff">Create an account</font></string>
 </resources>
