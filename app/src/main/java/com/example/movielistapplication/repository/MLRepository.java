@@ -50,5 +50,23 @@ public class MLRepository {
     public LiveData<List<User>> getAllUsers() {
         return userDao.getAllUsers();
     }
+
+    /**
+     * Movie operations
+     * Inserts a new movie into the database.
+     * TODO: Add the Movie operations methods. Requires MovieEntity & MovieDao.
+     */
+    public void insertMovie(Movie movie) {
+        executorService.execute(() -> movieDao.insertMovie(movie));
+    }
+
+    /**
+     * Movie operations
+     * Inserts a new watchlist entry into the database.
+     * TODO: Add the watchList operations methods. Requires WatchlistEntity & WatchlistDao.
+     */
+    public void insertWatchlist(Watchlist watchlist) {
+        executorService.execute(() -> watchlistDao.insertWatchlist(watchlist));
+    }
 }
 
