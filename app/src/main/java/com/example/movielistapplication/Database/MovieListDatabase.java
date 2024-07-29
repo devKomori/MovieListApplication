@@ -11,7 +11,6 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 
 import com.example.movielistapplication.Database.entities.User;
-import com.example.movielistapplication.MainActivity;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -57,7 +56,7 @@ public abstract class MovieListDatabase extends RoomDatabase {
             super.onCreate(db);
             Log.i(MovieListDatabase.TAG, "Created the Database!");
             databaseWriteExecutor.execute(() -> {
-                UserDao dao = INSTANCE.userDAO();
+                UserDao dao = INSTANCE.userDao();
                 dao.deleteAll();
                 User admin = new User("admin", "admin");
                 admin.setAdmin(true);
@@ -69,7 +68,7 @@ public abstract class MovieListDatabase extends RoomDatabase {
         }
     };
 
-    public abstract UserDao userDAO();
+    public abstract UserDao userDao();
 
 
 
