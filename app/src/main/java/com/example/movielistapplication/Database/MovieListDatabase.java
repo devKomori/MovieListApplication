@@ -10,6 +10,7 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 
+import com.example.movielistapplication.Database.entities.Movie;
 import com.example.movielistapplication.Database.entities.User;
 
 import java.util.concurrent.ExecutorService;
@@ -17,11 +18,12 @@ import java.util.concurrent.Executors;
 
 
 
-@Database(entities = {User.class}, version = 1, exportSchema = false)
+@Database(entities = {User.class, Movie.class}, version = 2, exportSchema = false)
 public abstract class MovieListDatabase extends RoomDatabase {
 
     public static final String DATABASE_NAME = "movieList_Database";
     public static final String USER_TABLE = "user_Table";
+    public static final String MOVIE_TABLE = "movie_Table";
     public static final String TAG = "MovieListDatabase";
 
     private static volatile MovieListDatabase INSTANCE;
@@ -73,12 +75,18 @@ public abstract class MovieListDatabase extends RoomDatabase {
 
                 User testUser = new User("testuser", "testuser");
                 dao.insert(testUser);
+
+                MovieDao movieDao = INSTANCE.movieDao();
+                movieDao.deleteAll();
+                Movie testMovie = new Movie("Test Movie");
+                movieDao.insert(testMovie);
             });
         }
     };
 
 
     public abstract UserDao userDao();
+    public abstract MovieDao movieDao();
 
 
 

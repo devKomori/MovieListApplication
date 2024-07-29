@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.movielistapplication.Database.entities.Movie;
 import com.example.movielistapplication.Database.entities.User;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class MovieListRepository {
     private static MovieListRepository repository;
     private UserDao userDao;
 //    TODO: Person implementing DAOS below are responsible for adding and implementing their methods.
-//    private MovieDao movieDao;
+    private MovieDao movieDao;
 //    private WatchlistDao watchlistDao;
 
 
@@ -33,7 +34,7 @@ public class MovieListRepository {
     public MovieListRepository(Application application) {
         MovieListDatabase db = MovieListDatabase.getDatabase(application);
         this.userDao = db.userDao();
-
+        this.movieDao = db.movieDao();
     }
 
 
@@ -100,14 +101,14 @@ public class MovieListRepository {
 
 
 
-//    /**
-//     * Movie operations
-//     * Inserts a new movie into the database.
-//     * TODO: Add the Movie operations methods. Requires MovieEntity & MovieDao.
-//     */
-//    public void insertMovie(Movie movie) {
-//        executorService.execute(() -> movieDao.insertMovie(movie));
-//    }
+    /**
+     * Movie operations
+     * Inserts a new movie into the database.
+     * TODO: Add the Movie operations methods. Requires MovieEntity & MovieDao.
+     */
+    public void insertMovie(Movie... movie) {
+        MovieListDatabase.databaseWriteExecutor.execute(() -> movieDao.insert(movie));
+    }
 //
 //    /**
 //     * Movie operations
