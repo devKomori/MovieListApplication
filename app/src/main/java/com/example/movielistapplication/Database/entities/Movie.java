@@ -6,6 +6,8 @@ import androidx.room.PrimaryKey;
 import com.example.movielistapplication.Database.MovieListDatabase;
 
 import java.util.Objects;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 @Entity(tableName = MovieListDatabase.MOVIE_TABLE)
 public class Movie {
@@ -23,6 +25,10 @@ public class Movie {
   // Constructor
   public Movie(String title) {
     this.title = title;
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("https://api.themoviedb.org")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build();
   }
 
 
@@ -104,4 +110,3 @@ public class Movie {
     return Objects.hash(movieId, poster, title, description, rating, releaseDate, genres);
   }
 }
-
