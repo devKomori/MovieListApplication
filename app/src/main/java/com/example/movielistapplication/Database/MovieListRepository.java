@@ -27,7 +27,7 @@ public class MovieListRepository {
 
 
     /**
-     * Constructor to create an MLARepository.
+     * Constructor to create an MovieListRepository.
      * TODO: Modify/import Movie and Watchlist.
      */
     public MovieListRepository(Application application) {
@@ -37,6 +37,11 @@ public class MovieListRepository {
     }
 
 
+    /**
+     * Retrieves a singleton instance of the MovieListRepository.
+     * If the repository doesn't exist, it is created asynchronously and returned.
+     * If an error occurs during creation, null is returned.
+     */
     public static MovieListRepository getRepository(Application application) {
         if (repository != null) {
             return repository;
@@ -57,6 +62,7 @@ public class MovieListRepository {
     }
 
 
+    /* Deletes specified user from the database asynchronously. */
     public void delete(User user) {
         MovieListDatabase.databaseWriteExecutor.execute(() -> {
             userDao.delete(user);
@@ -64,6 +70,7 @@ public class MovieListRepository {
     }
 
 
+    /* Inserts specified user into the database asynchronously. */
     public void insertUser(User user) {
         MovieListDatabase.databaseWriteExecutor.execute(() -> {
             userDao.insert(user);
@@ -71,16 +78,19 @@ public class MovieListRepository {
     }
 
 
+    /* Retrieves all users from the database. */
     public LiveData<List<User>> getAllUsers() {
         return userDao.getAllUsers();
     }
 
 
+    /* Retrieves a user by their username from the database. */
     public LiveData<User> getUserByUserName(String username) {
         return userDao.getUserByUserName(username);
     }
 
 
+    /* Retrieves a user by their user id from the database. */
     public LiveData<User> getUserByUserId(int userId) {
         return userDao.getUserByUserId(userId);
     }

@@ -28,8 +28,13 @@ public abstract class MovieListDatabase extends RoomDatabase {
     private static final int NUMBER_OF_THREADS = 4;
 
 
+    /* Executor service to run database operations in the background. */
     static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
+    /**
+     * Returns singleton instance of the MovieListDatabase.
+     * Creates the database if it does not exist
+     */
     static MovieListDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (MovieListDatabase.class) {
@@ -50,6 +55,10 @@ public abstract class MovieListDatabase extends RoomDatabase {
     }
 
 
+    /**
+     * Callback to add default values to the database when it is created.
+     * This will add an admin user and a test user to the database.
+     */
     private static final RoomDatabase.Callback addDefaultValues = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -67,6 +76,7 @@ public abstract class MovieListDatabase extends RoomDatabase {
             });
         }
     };
+
 
     public abstract UserDao userDao();
 
