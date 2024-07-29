@@ -15,21 +15,21 @@ import java.util.concurrent.Future;
 
 /**
  * Repository class to handle data operations for the Movie List Application.
- * TODO: Modify/import Movie and Watchlist.
+ * TODO: Modify/import Watchlist.
  */
 public class MovieListRepository {
     public static final String TAG = "MovieListRepository";
     private static MovieListRepository repository;
     private UserDao userDao;
-//    TODO: Person implementing DAOS below are responsible for adding and implementing their methods.
     private MovieDao movieDao;
+    //    TODO: Person implementing DAOs below are responsible for adding and implementing their methods.
 //    private WatchlistDao watchlistDao;
 
 
 
     /**
      * Constructor to create an MovieListRepository.
-     * TODO: Modify/import Movie and Watchlist.
+     * TODO: Modify/import Watchlist.
      */
     public MovieListRepository(Application application) {
         MovieListDatabase db = MovieListDatabase.getDatabase(application);
@@ -62,6 +62,8 @@ public class MovieListRepository {
         return null;
     }
 
+
+    // User operations
 
     /* Deletes specified user from the database asynchronously. */
     public void delete(User user) {
@@ -96,27 +98,54 @@ public class MovieListRepository {
         return userDao.getUserByUserId(userId);
     }
 
-
-
-
-
+    // Movie operations
 
     /**
-     * Movie operations
      * Inserts a new movie into the database.
-     * TODO: Add the Movie operations methods. Requires MovieEntity & MovieDao.
      */
     public void insertMovie(Movie... movie) {
         MovieListDatabase.databaseWriteExecutor.execute(() -> movieDao.insert(movie));
     }
-//
+
+    /**
+     *  Deletes specified Movie from the database asynchronously.
+     */
+    public void delete(Movie movie) {
+        MovieListDatabase.databaseWriteExecutor.execute(() -> {
+            movieDao.delete(movie);
+        });
+    }
+
+    /**
+     *  Retrieves all Movies from the database.
+     */
+    public LiveData<List<Movie>> getAllMovies() {
+        return movieDao.getAllMovies();
+    }
+
+    /**
+     * Retrieves a Movie by its title from the database.
+     */
+    public LiveData<Movie> getMovieByTitle(String title) {
+        return movieDao.getMovieByTitle(title);
+    }
+
+    /** Retrieves a Movie by its movie id (NOTE: This is set by TMDB, NOT auto-generated)
+     *  from the database.
+     */
+    public LiveData<Movie> getMovieByMovieId(int movieId) {
+        return movieDao.getMovieByMovieId(movieId);
+    }
+
+    // WatchList operations
+
 //    /**
-//     * Movie operations
+//     * WatchList operations
 //     * Inserts a new watchlist entry into the database.
 //     * TODO: Add the watchList operations methods. Requires WatchlistEntity & WatchlistDao.
 //     */
 //    public void insertWatchlist(Watchlist watchlist) {
-//        executorService.execute(() -> watchlistDao.insertWatchlist(watchlist));
+//        MovieListDatabase.databaseWriteExecutor.execute(() -> watchlistDao.insert(watchlist));
 //    }
 }
 
