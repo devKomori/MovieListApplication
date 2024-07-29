@@ -1,12 +1,19 @@
 package com.example.movielistapplication.Database.entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.movielistapplication.Database.MovieApiData;
 import com.example.movielistapplication.Database.MovieListDatabase;
 
-import java.util.Date;
+import com.example.movielistapplication.Database.TMDBRequest;
 import java.util.Objects;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 @Entity(tableName = MovieListDatabase.MOVIE_TABLE)
 public class Movie {
@@ -18,22 +25,35 @@ public class Movie {
   private String description;
   private int rating;
   //private Duration runtime; // TMDB doesn't give us runtime. Will need to use a different API if we want this.
-  private Date releaseDate;
-  private String genre;
+  private String releaseDate;
+  private String genres;
 
   // Constructor
   public Movie(String title) {
     this.title = title;
-    // TODO: Retrofit API Request to fill remaining fields
-    /*
-    this.movieId = movieId;
-    this.poster = poster;
-    this.title = title;
-    this.description = description;
-    this.rating = rating;
-    this.releaseDate = releaseDate;
-    this.genre = genre;
-    */
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("https://api.themoviedb.org")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build();
+    TMDBRequest tmdbRequest = retrofit.create(TMDBRequest.class);
+    tmdbRequest.getMovie(title.replace(' ', '+')).enqueue(new Callback<MovieApiData>() {
+      @Override
+      public void onResponse(@NonNull Call<MovieApiData> call,
+          @NonNull Response<MovieApiData> response) {
+        assert response.body() != null;
+        poster = response.body().getResults().getPoster_path();
+        description = response.body().getResults().getOverview();
+        rating = (int) (Double.parseDouble(response.body().getResults().getVote_average()) * 10);
+        releaseDate = response.body().getResults().getRelease_date();
+        genres = response.body().getResults()
+            .getGenre_ids(); // TODO: Use TMDB API to actually convert these IDs to a string of genres.
+      }
+
+      @Override
+      public void onFailure(@NonNull Call<MovieApiData> call, @NonNull Throwable throwable) {
+
+      }
+    });
   }
 
 
@@ -46,12 +66,12 @@ public class Movie {
     this.description = description;
   }
 
-  public String getGenre() {
-    return genre;
+  public String getGenres() {
+    return genres;
   }
 
-  public void setGenre(String genre) {
-    this.genre = genre;
+  public void setGenres(String genres) {
+    this.genres = genres;
   }
 
   public int getMovieId() {
@@ -78,11 +98,11 @@ public class Movie {
     this.rating = rating;
   }
 
-  public Date getReleaseDate() {
+  public String getReleaseDate() {
     return releaseDate;
   }
 
-  public void setReleaseDate(Date releaseDate) {
+  public void setReleaseDate(String releaseDate) {
     this.releaseDate = releaseDate;
   }
 
@@ -107,12 +127,11 @@ public class Movie {
     return movieId == movie.movieId && rating == movie.rating && Objects.equals(poster,
         movie.poster) && Objects.equals(title, movie.title) && Objects.equals(
         description, movie.description) && Objects.equals(releaseDate, movie.releaseDate)
-        && Objects.equals(genre, movie.genre);
+        && Objects.equals(genres, movie.genres);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(movieId, poster, title, description, rating, releaseDate, genre);
+    return Objects.hash(movieId, poster, title, description, rating, releaseDate, genres);
   }
 }
-
