@@ -1,7 +1,6 @@
-package com.example.movielistapplication.repository;
+package com.example.movielistapplication.Database;
 import android.app.Application;
 
-import com.example.movielistapplication.daos.UserDao;
 import java.util.concurrent.ExecutorService;
 
 /**

@@ -1,4 +1,4 @@
-package com.example.movielistapplication.daos;
+package com.example.movielistapplication.Database;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
