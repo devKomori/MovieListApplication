@@ -1,11 +1,17 @@
 package com.example.movielistapplication.Database.entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.movielistapplication.Database.MovieApiData;
 import com.example.movielistapplication.Database.MovieListDatabase;
 
+import com.example.movielistapplication.Database.TMDBRequest;
 import java.util.Objects;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -29,6 +35,25 @@ public class Movie {
         .baseUrl("https://api.themoviedb.org")
         .addConverterFactory(GsonConverterFactory.create())
         .build();
+    TMDBRequest tmdbRequest = retrofit.create(TMDBRequest.class);
+    tmdbRequest.getMovie(title.replace(' ', '+')).enqueue(new Callback<MovieApiData>() {
+      @Override
+      public void onResponse(@NonNull Call<MovieApiData> call,
+          @NonNull Response<MovieApiData> response) {
+        assert response.body() != null;
+        poster = response.body().getResults().getPoster_path();
+        description = response.body().getResults().getOverview();
+        rating = (int) (Double.parseDouble(response.body().getResults().getVote_average()) * 10);
+        releaseDate = response.body().getResults().getRelease_date();
+        genres = response.body().getResults()
+            .getGenre_ids(); // TODO: Use TMDB API to actually convert these IDs to a string of genres.
+      }
+
+      @Override
+      public void onFailure(@NonNull Call<MovieApiData> call, @NonNull Throwable throwable) {
+
+      }
+    });
   }
 
 
