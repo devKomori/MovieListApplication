@@ -8,11 +8,13 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.example.movielistapplication.Database.MovieListRepository;
 import com.example.movielistapplication.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    private MovieListRepository repository;
 
 
     @Override

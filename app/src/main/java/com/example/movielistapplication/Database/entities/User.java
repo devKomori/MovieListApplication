@@ -3,6 +3,8 @@ package com.example.movielistapplication.Database.entities;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.movielistapplication.Database.MovieListDatabase;
+
 import java.util.Objects;
 
 @Entity(tableName = MovieListDatabase.USER_TABLE)
