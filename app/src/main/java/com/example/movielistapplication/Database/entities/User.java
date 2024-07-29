@@ -69,7 +69,5 @@ public class User {
     public int hashCode() {
         return Objects.hash(userId, username, password, isAdmin);
     }
-
-
 }
 
