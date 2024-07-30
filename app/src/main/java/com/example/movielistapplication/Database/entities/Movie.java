@@ -4,10 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.movielistapplication.Database.MovieApiJsonResponse;
 import com.example.movielistapplication.Database.MovieApiData;
 import com.example.movielistapplication.Database.MovieListDatabase;
 
 import com.example.movielistapplication.Database.TMDBRequest;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,26 +40,37 @@ public class Movie {
         .addConverterFactory(GsonConverterFactory.create())
         .build();
     TMDBRequest tmdbRequest = retrofit.create(TMDBRequest.class);
-    tmdbRequest.getMovie(title.replace(' ', '+')).enqueue(new Callback<MovieApiData>() {
+
+    String processedTitle = title.replace(' ', '+');
+    Call<MovieApiJsonResponse> call = tmdbRequest.getMovies(processedTitle, TMDBRequest.API_KEY);
+    call.enqueue(new Callback<MovieApiJsonResponse>() {
       @Override
-      public void onResponse(@NonNull Call<MovieApiData> call,
-          @NonNull Response<MovieApiData> response) {
-        assert response.body() != null;
-        poster = response.body().getResults().getPoster_path();
-        description = response.body().getResults().getOverview();
-        rating = (int) (Double.parseDouble(response.body().getResults().getVote_average()) * 10);
-        releaseDate = response.body().getResults().getRelease_date();
-        genres = response.body().getResults()
-            .getGenre_ids(); // TODO: Use TMDB API to actually convert these IDs to a string of genres.
+      public void onResponse(@NonNull Call<MovieApiJsonResponse> call,
+          @NonNull Response<MovieApiJsonResponse> response) {
+        MovieApiJsonResponse jsonResponse = response.body();
+        List<MovieApiData> movieList;
+
+        if (jsonResponse != null) {
+          movieList = new ArrayList<>(Arrays.asList(jsonResponse.getMoviesArray()));
+          movieId = movieList.get(0).getId();
+          poster = movieList.get(0).getPoster_path();
+          description = movieList.get(0).getOverview();
+          rating = (int) (movieList.get(0).getVote_average() * 10);
+          releaseDate = movieList.get(0).getRelease_date();
+          /* TODO: Use TMDB API to actually convert these IDs to a string of genres.
+           * https://api.themoviedb.org/3/genre/movie/list?language=en gives us an array of pairs of
+           * id & name
+           */
+          genres = Arrays.toString(movieList.get(0).getGenre_ids());
+        }
       }
 
       @Override
-      public void onFailure(@NonNull Call<MovieApiData> call, @NonNull Throwable throwable) {
-
+      public void onFailure(@NonNull Call<MovieApiJsonResponse> call, @NonNull Throwable throwable) {
+        // TODO: Display error message to user
       }
     });
   }
-
 
   // Auto-generated getter and setter methods.
   public String getDescription() {
