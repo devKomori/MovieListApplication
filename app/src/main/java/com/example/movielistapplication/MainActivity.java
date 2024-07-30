@@ -1,19 +1,15 @@
 package com.example.movielistapplication;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
@@ -52,13 +48,13 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = LoginActivity.loginIntentFactory(getApplicationContext());
             startActivity(intent);
         }
-        // Keeps the user logged in
+        // Keeps the user's login state.
         updateSharedPreference();
 
         // Sets the action bar color and removes the title when it is created.
         if (getSupportActionBar() != null) {
             Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(
-                    getResources().getColor(R.color.main_color)));
+                    getColor(R.color.main_color)));
             getSupportActionBar().setTitle("");
         }
 
@@ -106,20 +102,17 @@ public class MainActivity extends AppCompatActivity {
         if (user.isAdmin()) {
             adminBinding = ActivityMainAdminLayoutBinding.inflate(getLayoutInflater());
             setContentView(adminBinding.getRoot());
-            adminBinding.greetingTextView.setText("Hello, " + user.getUsername());
+            adminBinding.greetingTextView.setText(String.format("Hello, %s", user.getUsername()));
         }
         else {
             binding = ActivityMainBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());
-            binding.greetingTextView.setText("Hello, " + user.getUsername());
+            binding.greetingTextView.setText(String.format("Hello, %s", user.getUsername()));
         }
     }
 
 
-
-
-
-
+    /* Inflates the logout_menu and adds it to the action bar. */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.logout_menu, menu);
@@ -127,9 +120,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
+    /**
+     * Prepares the options menu by setting the username and logout item visibility.
+     * Sets the click listener for the logout item and calls the logout method when clicked.
+     */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem usernameItem = menu.findItem(R.id.usernameMenuItemId);
@@ -151,9 +145,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
+    /**
+     * Sets the user ID to LOGGED_OUT and updates the shared preference.
+     * Starts the LoginActivity to bring the user back to the login screen.
+     */
     private void logout() {
         loggedInUserId = LOGGED_OUT;
         updateSharedPreference();
