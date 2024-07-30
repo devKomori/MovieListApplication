@@ -2,13 +2,18 @@ package com.example.movielistapplication;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
@@ -112,6 +117,50 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.logout_menu, menu);
+        return true;
+    }
+
+
+
+
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem usernameItem = menu.findItem(R.id.usernameMenuItemId);
+        MenuItem logoutItem = menu.findItem(R.id.userLogOutMenuItemId);
+        usernameItem.setVisible(true);
+        logoutItem.setVisible(true);
+        if (user == null) {
+            return false;
+        }
+        usernameItem.setTitle(user.getUsername());
+        logoutItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem item) {
+                logout();
+                return false;
+            }
+        });
+        return true;
+    }
+
+
+
+
+
+    private void logout() {
+        loggedInUserId = LOGGED_OUT;
+        updateSharedPreference();
+
+        getIntent().putExtra(MAIN_ACTIVITY_USER_ID, LOGGED_OUT);
+        startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
+    }
 
 
     /**

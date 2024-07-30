@@ -13,4 +13,6 @@
     <string name="watchlist">Watchlist</string>
     <string name="browse_movies">Browse Movies</string>
     <string name="admin_stuff">Admin Stuff</string>
+    <string name="menuusernametitle">menuUserNameTitle</string>
+    <string name="logout">Logout</string>
 </resources>
