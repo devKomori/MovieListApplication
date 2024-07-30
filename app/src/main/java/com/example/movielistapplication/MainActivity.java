@@ -1,9 +1,11 @@
 package com.example.movielistapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.TextView;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +14,8 @@ import androidx.lifecycle.LiveData;
 
 import com.example.movielistapplication.Database.MovieListRepository;
 import com.example.movielistapplication.Database.entities.User;
+
+import com.example.movielistapplication.databinding.ActivityMainAdminLayoutBinding;
 import com.example.movielistapplication.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,7 +23,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String MAIN_ACTIVITY_USER_ID = "com.example.movielistapplication.MAIN_ACTIVITY_USER_ID";
     private static final String SAVED_INSTANCE_STATE_USERID_KEY = "com.example.movielistapplication.SAVED_INSTANCE_STATE_USERID_KEY";
 
+
     private ActivityMainBinding binding;
+    private ActivityMainAdminLayoutBinding adminBinding;
     private MovieListRepository repository;
 
     private static final int LOGGED_OUT = -1;
@@ -30,8 +36,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
 
         repository = MovieListRepository.getRepository(getApplication());
         loginUser(savedInstanceState); // call to method for logging in
@@ -40,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = LoginActivity.loginIntentFactory(getApplicationContext());
             startActivity(intent);
         }
+        // Keeps the user logged in
         updateSharedPreference();
 
     }
@@ -69,10 +74,33 @@ public class MainActivity extends AppCompatActivity {
         userObserver.observe(this, user -> {
             this.user = user;
             if (this.user != null) {
+                changeUIForUserLandingPage();
                 invalidateOptionsMenu();
             }
         });
     }
+
+
+    /**
+     * Changes the UI based on the user's role.
+     * If the user is an admin, they will see the admin layout.
+     * If the user is not an admin, they will see the default user layout.
+     */
+    private void changeUIForUserLandingPage() {
+        if (user.isAdmin()) {
+            adminBinding = ActivityMainAdminLayoutBinding.inflate(getLayoutInflater());
+            setContentView(adminBinding.getRoot());
+            adminBinding.greetingTextView.setText("Hello, " + user.getUsername());
+        }
+        else {
+            binding = ActivityMainBinding.inflate(getLayoutInflater());
+            setContentView(binding.getRoot());
+            binding.greetingTextView.setText("Hello, " + user.getUsername());
+        }
+    }
+
+
+
 
 
     /**
