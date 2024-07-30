@@ -3,23 +3,33 @@ package com.example.movielistapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
 
 import com.example.movielistapplication.Database.MovieListRepository;
 import com.example.movielistapplication.Database.entities.User;
+
+import com.example.movielistapplication.databinding.ActivityMainAdminLayoutBinding;
 import com.example.movielistapplication.databinding.ActivityMainBinding;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String MAIN_ACTIVITY_USER_ID = "com.example.movielistapplication.MAIN_ACTIVITY_USER_ID";
     private static final String SAVED_INSTANCE_STATE_USERID_KEY = "com.example.movielistapplication.SAVED_INSTANCE_STATE_USERID_KEY";
 
+
     private ActivityMainBinding binding;
+    private ActivityMainAdminLayoutBinding adminBinding;
     private MovieListRepository repository;
 
     private static final int LOGGED_OUT = -1;
@@ -30,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
 
         repository = MovieListRepository.getRepository(getApplication());
         loginUser(savedInstanceState); // call to method for logging in
@@ -40,7 +48,16 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = LoginActivity.loginIntentFactory(getApplicationContext());
             startActivity(intent);
         }
+        // Keeps the user's login state.
         updateSharedPreference();
+
+        // Sets the action bar color and removes the title when it is created.
+        if (getSupportActionBar() != null) {
+            Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(
+                    getColor(R.color.main_color)));
+            getSupportActionBar().setTitle("");
+        }
+
 
     }
 
@@ -69,9 +86,75 @@ public class MainActivity extends AppCompatActivity {
         userObserver.observe(this, user -> {
             this.user = user;
             if (this.user != null) {
+                changeUIForUserLandingPage();
                 invalidateOptionsMenu();
             }
         });
+    }
+
+
+    /**
+     * Changes the UI based on the user's role.
+     * If the user is an admin, they will see the admin layout.
+     * If the user is not an admin, they will see the default user layout.
+     */
+    private void changeUIForUserLandingPage() {
+        if (user.isAdmin()) {
+            adminBinding = ActivityMainAdminLayoutBinding.inflate(getLayoutInflater());
+            setContentView(adminBinding.getRoot());
+            adminBinding.greetingTextView.setText(String.format("Hello, %s", user.getUsername()));
+        }
+        else {
+            binding = ActivityMainBinding.inflate(getLayoutInflater());
+            setContentView(binding.getRoot());
+            binding.greetingTextView.setText(String.format("Hello, %s", user.getUsername()));
+        }
+    }
+
+
+    /* Inflates the logout_menu and adds it to the action bar. */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.logout_menu, menu);
+        return true;
+    }
+
+
+    /**
+     * Prepares the options menu by setting the username and logout item visibility.
+     * Sets the click listener for the logout item and calls the logout method when clicked.
+     */
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem usernameItem = menu.findItem(R.id.usernameMenuItemId);
+        MenuItem logoutItem = menu.findItem(R.id.userLogOutMenuItemId);
+        usernameItem.setVisible(true);
+        logoutItem.setVisible(true);
+        if (user == null) {
+            return false;
+        }
+        usernameItem.setTitle(user.getUsername());
+        logoutItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem item) {
+                logout();
+                return false;
+            }
+        });
+        return true;
+    }
+
+
+    /**
+     * Sets the user ID to LOGGED_OUT and updates the shared preference.
+     * Starts the LoginActivity to bring the user back to the login screen.
+     */
+    private void logout() {
+        loggedInUserId = LOGGED_OUT;
+        updateSharedPreference();
+
+        getIntent().putExtra(MAIN_ACTIVITY_USER_ID, LOGGED_OUT);
+        startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
     }
 
 
