@@ -5,7 +5,8 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
 
-    // Sets the "Create an account" text to the color set here instead of the color inside the TextView
+    // Sets the "Create an account" text to the color set here instead of the color inside the
+    TextView
     <string name="not_registered_text">Not registered? <font color="#3577ff">Create an account</font></string>
     <string name="preference_file_key">movielistapp_preference_file_key</string>
     <string name="preference_userId_key">movielistapp_preference_userid_key</string>
