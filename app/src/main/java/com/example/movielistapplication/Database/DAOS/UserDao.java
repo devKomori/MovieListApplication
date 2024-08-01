@@ -1,4 +1,4 @@
-package com.example.movielistapplication.Database;
+package com.example.movielistapplication.Database.DAOS;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -7,6 +7,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import com.example.movielistapplication.Database.MovieListDatabase;
 import com.example.movielistapplication.Database.entities.User;
 
 import java.util.List;

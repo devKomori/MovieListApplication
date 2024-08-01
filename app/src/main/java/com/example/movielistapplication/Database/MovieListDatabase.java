@@ -10,6 +10,8 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 
+import com.example.movielistapplication.Database.DAOS.MovieDao;
+import com.example.movielistapplication.Database.DAOS.UserDao;
 import com.example.movielistapplication.Database.entities.Movie;
 import com.example.movielistapplication.Database.entities.User;
 
