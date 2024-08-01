@@ -1,4 +1,51 @@
 package com.example.movielistapplication.viewholders;
 
-public class MovieListAdapter {
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+
+import com.example.movielistapplication.Database.entities.Movie;
+import com.example.movielistapplication.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MovieListAdapter extends RecyclerView.Adapter<MovieListViewHolder> {
+
+    private List<Movie> movies = new ArrayList<>();
+
+    @NonNull
+    @Override
+    public MovieListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_item, parent, false);
+        return new MovieListViewHolder(view);
+    }
+
+
+    @Override
+    public void onBindViewHolder(@NonNull MovieListViewHolder holder, int position) {
+        Movie movie = movies.get(position);
+        holder.title.setText(movie.getTitle());
+        Glide.with(holder.itemView.getContext())
+                .load("https://image.tmdb.org/t/p/w500/" + movie.getPoster())
+                .into(holder.movieImage);
+    }
+
+
+    @Override
+    public int getItemCount() {
+        return movies.size();
+    }
+
+
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
+        notifyDataSetChanged();
+    }
 }
