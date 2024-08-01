@@ -13,11 +13,12 @@
         android:theme="@style/Theme.MovieListApplication"
         tools:targetApi="31">
         <activity
+            android:name=".BrowseMoviesActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:exported="true">
-        </activity>
-
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">

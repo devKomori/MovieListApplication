@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 import androidx.annotation.NonNull;
@@ -41,6 +42,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Checks if the user is an admin and inflates the appropriate layout.
+        if (user != null && user.isAdmin()) {
+            adminBinding = ActivityMainAdminLayoutBinding.inflate(getLayoutInflater());
+            setContentView(adminBinding.getRoot());
+
+        } else {
+            binding = ActivityMainBinding.inflate(getLayoutInflater());
+            setContentView(binding.getRoot());
+        }
+
         repository = MovieListRepository.getRepository(getApplication());
         loginUser(savedInstanceState); // call to method for logging in
 
@@ -57,6 +68,16 @@ public class MainActivity extends AppCompatActivity {
                     getColor(R.color.main_color)));
             getSupportActionBar().setTitle("");
         }
+
+        // Sets the click listener for the browse movies button for both user types.
+        binding.browseMoviesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = BrowseMoviesActivity.browseMoviesIntentFactory(getApplicationContext());
+                startActivity(intent);
+            }
+        });
+
 
 
     }
@@ -86,29 +107,11 @@ public class MainActivity extends AppCompatActivity {
         userObserver.observe(this, user -> {
             this.user = user;
             if (this.user != null) {
-                changeUIForUserLandingPage();
+                // Changes the greeting TextView message to include the user's name.
+                binding.greetingTextView.setText(String.format("Hello, %s", user.getUsername()));
                 invalidateOptionsMenu();
             }
         });
-    }
-
-
-    /**
-     * Changes the UI based on the user's role.
-     * If the user is an admin, they will see the admin layout.
-     * If the user is not an admin, they will see the default user layout.
-     */
-    private void changeUIForUserLandingPage() {
-        if (user.isAdmin()) {
-            adminBinding = ActivityMainAdminLayoutBinding.inflate(getLayoutInflater());
-            setContentView(adminBinding.getRoot());
-            adminBinding.greetingTextView.setText(String.format("Hello, %s", user.getUsername()));
-        }
-        else {
-            binding = ActivityMainBinding.inflate(getLayoutInflater());
-            setContentView(binding.getRoot());
-            binding.greetingTextView.setText(String.format("Hello, %s", user.getUsername()));
-        }
     }
 
 
@@ -181,7 +184,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
         return intent;
     }
-
 
 
 
