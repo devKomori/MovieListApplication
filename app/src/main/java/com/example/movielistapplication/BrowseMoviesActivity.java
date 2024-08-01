@@ -22,6 +22,8 @@ public class BrowseMoviesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(binding.getRoot());
 
+
+
     }
 
 

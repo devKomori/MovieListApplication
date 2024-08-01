@@ -115,9 +115,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
     /* Inflates the logout_menu and adds it to the action bar. */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
