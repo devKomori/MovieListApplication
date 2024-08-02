@@ -4,6 +4,7 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+/*
 public class Watchlist {
     import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -43,3 +44,5 @@ import androidx.room.PrimaryKey;
     }
 
 }
+
+*/

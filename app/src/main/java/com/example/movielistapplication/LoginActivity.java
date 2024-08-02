@@ -60,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
             if (user != null) {
                 if (password.equals(user.getPassword())) {
                     startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(), user.getUserId()));
+                    toastMaker("Login successful!");
                 }
                 else {
                     toastMaker("Invalid password.");

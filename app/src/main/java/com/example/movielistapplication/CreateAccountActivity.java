@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.movielistapplication.Database.entities.User;
 
+/*
 public class CreateAccountActivity extends AppCompatActivity {
     private UserViewModel userViewModel;
     private EditText usernameEditText, passwordEditText, confirmPasswordEditText;
@@ -57,3 +58,5 @@ public class CreateAccountActivity extends AppCompatActivity {
         return new Intent(context, CreateAccountActivity.class);
     }
 }
+
+*/
