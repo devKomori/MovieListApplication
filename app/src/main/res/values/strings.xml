@@ -16,5 +16,9 @@
     <string name="admin_stuff">Admin Stuff</string>
     <string name="menuusernametitle">menuUserNameTitle</string>
     <string name="logout">Logout</string>
+    create_account
+    <string name="confirm_password">Confirm Password</string>
+    <string name="create_account">Create Account</string>
+    <string name="user_name">Username</string>
     <string name="movie_title">Movie Title</string>
 </resources>
