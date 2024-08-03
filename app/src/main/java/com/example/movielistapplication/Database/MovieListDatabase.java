@@ -10,8 +10,10 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 
+import com.example.movielistapplication.CreateAccountActivity;
 import com.example.movielistapplication.Database.DAOS.MovieDao;
 import com.example.movielistapplication.Database.DAOS.UserDao;
+import com.example.movielistapplication.Database.DAOS.WatchlistDao;
 import com.example.movielistapplication.Database.entities.Movie;
 import com.example.movielistapplication.Database.entities.User;
 
@@ -27,6 +29,7 @@ public abstract class MovieListDatabase extends RoomDatabase {
     public static final String USER_TABLE = "user_Table";
     public static final String MOVIE_TABLE = "movie_Table";
     public static final String TAG = "MovieListDatabase";
+    public static final String WATCHLIST_TABLE = "WatchList_Database";
 
     private static volatile MovieListDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
@@ -89,6 +92,8 @@ public abstract class MovieListDatabase extends RoomDatabase {
 
     public abstract UserDao userDao();
     public abstract MovieDao movieDao();
+    public abstract WatchlistDao watchListDao();
+
 
 
 
