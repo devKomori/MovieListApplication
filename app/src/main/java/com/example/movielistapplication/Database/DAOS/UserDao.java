@@ -6,6 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.movielistapplication.Database.MovieListDatabase;
 import com.example.movielistapplication.Database.entities.User;
@@ -44,4 +45,6 @@ public interface UserDao {
     @Query("SELECT * FROM " + MovieListDatabase.USER_TABLE + " WHERE userId == :userId")
     LiveData<User> getUserByUserId(int userId);
 
+    @Update
+    void update(User user);
 }
