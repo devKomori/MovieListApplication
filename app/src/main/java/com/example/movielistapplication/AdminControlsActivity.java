@@ -1,5 +1,6 @@
 package com.example.movielistapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,24 +14,26 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 public class AdminControlsActivity extends AppCompatActivity {
 
-    private Button manageUsersButton;
-    private Button manageMoviesButton;
-    private Button viewReportsButton;
-
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_controls);
 
-        manageUsersButton = findViewById(R.id.button_manage_users);
-        manageMoviesButton = findViewById(R.id.button_manage_movies);
-        viewReportsButton = findViewById(R.id.button_view_reports);
+        // Initialize button
+        Button manageUsersButton = findViewById(R.id.button_manage_users);
 
+        // Set onClick listener button
         manageUsersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(AdminControlsActivity.this, "Manage Users clicked", Toast.LENGTH_SHORT).show();
+                // Start ManageUsersActivity
+                Intent intent = new Intent(AdminControlsActivity.this, ManageUsersActivity.class);
+                startActivity(intent);
             }
-        }
+        });
     }
 }
