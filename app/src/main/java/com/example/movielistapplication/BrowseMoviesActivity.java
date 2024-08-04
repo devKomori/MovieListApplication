@@ -50,6 +50,14 @@ public class BrowseMoviesActivity extends AppCompatActivity {
         GetRetrofitResponse();
 
 
+        button = findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GetRetrofitResponse();
+            }
+        });
+
 
 
 
@@ -76,7 +84,7 @@ public class BrowseMoviesActivity extends AppCompatActivity {
 
     private void GetRetrofitResponse() {
 
-        TMDBRequest tmdbRequest = ApiRetrofitClient.getTmdbRequest();
+        TMDBRequest tmdbRequest = ApiRetrofitClient.getRetrofit().create(TMDBRequest.class);
 
         Call<MovieApiJsonResponse> responseCall = tmdbRequest
                 .getPopularMovies(

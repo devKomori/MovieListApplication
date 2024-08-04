@@ -8,17 +8,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiRetrofitClient {
 
-    private static Retrofit.Builder  retrofitbuilder = new Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org")
-            .addConverterFactory(GsonConverterFactory.create());
+    private static Retrofit retrofit;
 
-    private static final Retrofit retrofit = retrofitbuilder.build();
-
-    private static final TMDBRequest tmdbRequest = retrofit.create(TMDBRequest.class);
-
-    public static TMDBRequest getTmdbRequest(){
-
-        return tmdbRequest;
+    public static Retrofit getRetrofit() {
+        if(retrofit == null){
+            retrofit = new Retrofit.Builder()
+                    .baseUrl("https://api.themoviedb.org")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+        return retrofit;
     }
-
 }

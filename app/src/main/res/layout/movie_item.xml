@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/movieItemConstraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="190dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="10dp"
@@ -23,13 +23,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="150dp" />
+            app:layout_constraintGuide_end="242dp" />
 
         <TextView
+            android:layout_marginStart="5dp"
             android:id="@+id/movieNameTextViewForMovieItem"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:text="@string/movie_title"
             android:textColor="@color/white"
             android:textSize="15sp"
@@ -37,6 +38,54 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideLineForMovieItem"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ratingStarImageView"
+            app:layout_constraintBottom_toTopOf="@id/calendarImageView"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/rate_star_24"
+            app:layout_constraintStart_toStartOf="@id/guideLineForMovieItem"
+            app:layout_constraintTop_toBottomOf="@id/movieNameTextViewForMovieItem" />
+
+        <TextView
+            android:id="@+id/ratingTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/ratingStarImageView"
+            app:layout_constraintTop_toTopOf="@id/ratingStarImageView"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@id/movieItemConstraintLayout"
+            android:layout_marginStart="5dp"
+            android:text="Rating"/>
+
+        <ImageView
+            android:id="@+id/calendarImageView"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/baseline_calendar_month_24"
+            app:layout_constraintTop_toBottomOf="@id/ratingTextView"
+            app:layout_constraintStart_toEndOf="@id/guideLineForMovieItem"
+            app:layout_constraintBottom_toBottomOf="@id/movieItemConstraintLayout"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="30dp"/>
+
+        <TextView
+            android:id="@+id/releaseDateTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/calendarImageView"
+            app:layout_constraintTop_toTopOf="@id/calendarImageView"
+            android:textColor="@color/white"
+            android:text="Release Date"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@id/movieItemConstraintLayout"
+            android:layout_marginStart="5dp"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -47,14 +96,14 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/movieItemConstraintLayout"
         app:layout_constraintStart_toStartOf="@id/movieItemConstraintLayout"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginStart="17dp">
+
+        android:layout_marginBottom="7dp"
+        android:layout_marginStart="10dp">
 
         <ImageView
             android:id="@+id/movieImageViewForMoviePoster"
-            android:layout_width="115dp"
-            android:layout_height="160dp"
+            android:layout_width="130dp"
+            android:layout_height="175dp"
             android:scaleType="fitXY"
             android:background="@color/white"
             app:srcCompat="@drawable/ic_launcher_background"
@@ -64,6 +113,7 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

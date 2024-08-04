@@ -31,6 +31,8 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull MovieListViewHolder holder, int position) {
         Movie movie = movies.get(position);
+        holder.rating.setText(String.valueOf(movie.getVoteAverage()));
+        holder.releaseDate.setText(movie.getReleaseDate());
         holder.title.setText(movie.getTitle());
         Glide.with(holder.itemView.getContext())
                 .load("https://image.tmdb.org/t/p/w500/" + movie.getPosterPath())

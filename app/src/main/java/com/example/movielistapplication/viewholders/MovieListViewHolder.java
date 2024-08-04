@@ -14,16 +14,21 @@ public class MovieListViewHolder extends RecyclerView.ViewHolder {
 
     // Display widget stuff
     TextView title;
-    ConstraintLayout movieListCardView;
+    TextView rating;
     ImageView movieImage;
+    TextView releaseDate;
+
+
 
 
     public MovieListViewHolder(@NonNull View itemView) {
         super(itemView);
 
+        rating = itemView.findViewById(R.id.ratingTextView);
         title = itemView.findViewById(R.id.movieNameTextViewForMovieItem);
         movieImage = itemView.findViewById(R.id.movieImageViewForMoviePoster);
-        movieListCardView = itemView.findViewById(R.id.movieItemConstraintLayout);
+        releaseDate = itemView.findViewById(R.id.releaseDateTextView);
+
 
     }
 }
