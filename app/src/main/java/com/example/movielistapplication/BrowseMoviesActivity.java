@@ -2,14 +2,16 @@ package com.example.movielistapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,18 +51,11 @@ public class BrowseMoviesActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         GetRetrofitResponse();
 
-
-        button = findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                GetRetrofitResponse();
-            }
-        });
+        Toolbar toolbar = findViewById(R.id.searchToolbar);
+        setSupportActionBar(toolbar);
 
 
-
-
+        MovieSearchView();
 
 
         repository = MovieListRepository.getRepository(getApplication());
@@ -81,6 +76,10 @@ public class BrowseMoviesActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+
 
     private void GetRetrofitResponse() {
 
@@ -124,6 +123,56 @@ public class BrowseMoviesActivity extends AppCompatActivity {
     public static Intent browseMoviesIntentFactory(Context context) {
         return new Intent(context, BrowseMoviesActivity.class);
     }
+
+
+
+
+    private void MovieSearchView() {
+        final SearchView searchView = findViewById(R.id.movieSearchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchApiForMovies(query);
+                return true;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+    }
+
+
+    private void searchApiForMovies(String query) {
+        TMDBRequest tmdbRequest = ApiRetrofitClient.getRetrofit().create(TMDBRequest.class);
+        Call<MovieApiJsonResponse> responseCall = tmdbRequest.searchMovies(TMDBRequest.API_KEY, query, "1" );
+
+        responseCall.enqueue(new Callback<MovieApiJsonResponse>() {
+            @Override
+            public void onResponse(Call<MovieApiJsonResponse> call, Response<MovieApiJsonResponse> response) {
+                if (response.code() == 200) {
+                    List<Movie> movies = response.body().getResults();
+                    adapter.setMovies(movies);
+
+                    Log.d(TAG, "Search results: " + movies.size());
+                } else {
+                    try {
+                        Log.e(TAG, "Error: " + response.errorBody().string());
+                    } catch (IOException e) {
+                        Log.e(TAG, "Error parsing error body", e);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MovieApiJsonResponse> call, Throwable t) {
+                Log.e(TAG, "API call failed", t);
+            }
+        });
+    }
+
+
+
 
 
 

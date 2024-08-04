@@ -19,6 +19,7 @@ public interface TMDBRequest {
           @Query("api_key") String key,
           @Query("query") String query,
           @Query("page") String page
+
   );
 
 
