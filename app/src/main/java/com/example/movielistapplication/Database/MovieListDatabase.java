@@ -78,7 +78,8 @@ public abstract class MovieListDatabase extends RoomDatabase {
                 User testUser = new User("testuser", "testuser");
                 dao.insert(testUser);
 
-
+                MovieDao movieDao = INSTANCE.movieDao();
+                movieDao.deleteAll();
 
 
             });

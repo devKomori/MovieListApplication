@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.SearchView;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.widget.Toolbar;
@@ -54,7 +55,6 @@ public class BrowseMoviesActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.searchToolbar);
         setSupportActionBar(toolbar);
 
-
         MovieSearchView();
 
 
@@ -82,29 +82,20 @@ public class BrowseMoviesActivity extends AppCompatActivity {
 
 
     private void GetRetrofitResponse() {
-
         TMDBRequest tmdbRequest = ApiRetrofitClient.getRetrofit().create(TMDBRequest.class);
 
-        Call<MovieApiJsonResponse> responseCall = tmdbRequest
-                .getPopularMovies(
-                        TMDBRequest.API_KEY,
-                        "1");
+        Call<MovieApiJsonResponse> responseCall = tmdbRequest.getPopularMovies(TMDBRequest.API_KEY, "1");
         responseCall.enqueue(new Callback<MovieApiJsonResponse>() {
             @Override
             public void onResponse(Call<MovieApiJsonResponse> call, Response<MovieApiJsonResponse> response) {
-                if (response.code() == 200){
-                    Log.v("response tag", "the response" + response.body().toString());
+                if (response.code() == 200) {
+                    Log.v("Response Code", "the response code is: " + response.body().toString());
 
                     List<Movie> movies = new ArrayList<>(response.body().getResults());
-
-                    for (Movie movie : movies) {
-                        Log.v("tag", "the release date" + movie.getReleaseDate());
-                        repository.insertMovie(movie);
-                    }
-                }
-                else{
+                    adapter.setMovies(movies);
+                } else {
                     try {
-                        Log.v("tagy", "Error" + response.errorBody().string());
+                        Log.v("Response Code", "Error" + response.errorBody().string());
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -113,10 +104,9 @@ public class BrowseMoviesActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<MovieApiJsonResponse> call, Throwable throwable) {
-
+                Log.e(TAG, "API call failed", throwable);
             }
         });
-
     }
 
 
