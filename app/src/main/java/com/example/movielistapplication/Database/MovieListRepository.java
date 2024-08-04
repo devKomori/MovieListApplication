@@ -3,9 +3,10 @@ import android.app.Application;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
-
+import com.example.movielistapplication.Database.DAOS.WatchlistDao;
 import com.example.movielistapplication.Database.DAOS.MovieDao;
 import com.example.movielistapplication.Database.DAOS.UserDao;
+import com.example.movielistapplication.Database.entities.Watchlist;
 import com.example.movielistapplication.Database.entities.Movie;
 import com.example.movielistapplication.Database.entities.User;
 
@@ -17,28 +18,24 @@ import java.util.concurrent.Future;
 
 /**
  * Repository class to handle data operations for the Movie List Application.
- * TODO: Modify/import Watchlist.
  */
 public class MovieListRepository {
     public static final String TAG = "MovieListRepository";
     private static MovieListRepository repository;
     private UserDao userDao;
     private MovieDao movieDao;
-    //    TODO: Person implementing DAOs below are responsible for adding and implementing their methods.
-//    private WatchlistDao watchlistDao;
-
+    private WatchlistDao watchListDao;
 
 
     /**
      * Constructor to create an MovieListRepository.
-     * TODO: Modify/import Watchlist.
      */
     public MovieListRepository(Application application) {
         MovieListDatabase db = MovieListDatabase.getDatabase(application);
         this.userDao = db.userDao();
         this.movieDao = db.movieDao();
+        this.watchListDao = db.watchListDao();
     }
-
 
     /**
      * Retrieves a singleton instance of the MovieListRepository.
@@ -141,13 +138,13 @@ public class MovieListRepository {
 
     // WatchList operations
 
-//    /**
-//     * WatchList operations
-//     * Inserts a new watchlist entry into the database.
-//     * TODO: Add the watchList operations methods. Requires WatchlistEntity & WatchlistDao.
-//     */
-//    public void insertWatchlist(Watchlist watchlist) {
-//        MovieListDatabase.databaseWriteExecutor.execute(() -> watchlistDao.insert(watchlist));
-//    }
+   /**
+    * WatchList operations
+    */
+    public void insertWatchlist(Watchlist watchList) {
+        MovieListDatabase.databaseWriteExecutor.execute(() -> {
+            watchListDao.insert(watchList);
+        });
+  }
 }
 

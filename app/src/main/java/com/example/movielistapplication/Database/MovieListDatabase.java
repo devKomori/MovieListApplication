@@ -33,13 +33,13 @@ public abstract class MovieListDatabase extends RoomDatabase {
 
 
     /* Executor service to run database operations in the background. */
-    static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+    public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     /**
      * Returns singleton instance of the MovieListDatabase.
      * Creates the database if it does not exist
      */
-    static MovieListDatabase getDatabase(final Context context) {
+    public static MovieListDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (MovieListDatabase.class) {
                 if (INSTANCE == null) {

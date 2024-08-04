@@ -1,5 +1,6 @@
 package com.example.movielistapplication;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -33,6 +34,7 @@ public class ManageUsersActivity extends AppCompatActivity implements UserAdapte
     private Button buttonDeleteUser;
     private User selectedUser;
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
