@@ -47,15 +47,8 @@ public class BrowseMoviesActivity extends AppCompatActivity {
         binding = ActivityBrowseMoviesBinding.inflate(getLayoutInflater());
         super.onCreate(savedInstanceState);
         setContentView(binding.getRoot());
+        GetRetrofitResponse();
 
-
-        button = findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                GetRetrofitResponse();
-            }
-        });
 
 
 
