@@ -22,8 +22,8 @@ public class MovieListViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
         title = itemView.findViewById(R.id.movieNameTextViewForMovieItem);
-        movieListCardView = itemView.findViewById(R.id.movieItemConstraintLayout);
         movieImage = itemView.findViewById(R.id.movieImageViewForMoviePoster);
+        movieListCardView = itemView.findViewById(R.id.movieItemConstraintLayout);
 
     }
 }

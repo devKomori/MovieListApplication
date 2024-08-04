@@ -3,6 +3,7 @@ import android.app.Application;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.movielistapplication.Database.DAOS.MovieDao;
 import com.example.movielistapplication.Database.DAOS.UserDao;
@@ -24,6 +25,7 @@ public class MovieListRepository {
     private static MovieListRepository repository;
     private UserDao userDao;
     private MovieDao movieDao;
+    private MutableLiveData<List<Movie>> mMovies = new MutableLiveData<>();
     //    TODO: Person implementing DAOs below are responsible for adding and implementing their methods.
 //    private WatchlistDao watchlistDao;
 
@@ -37,6 +39,7 @@ public class MovieListRepository {
         MovieListDatabase db = MovieListDatabase.getDatabase(application);
         this.userDao = db.userDao();
         this.movieDao = db.movieDao();
+        this.mMovies = new MutableLiveData<>();
     }
 
 
@@ -63,6 +66,7 @@ public class MovieListRepository {
         }
         return null;
     }
+
 
 
     // User operations
@@ -138,6 +142,12 @@ public class MovieListRepository {
     public LiveData<Movie> getMovieByMovieId(int movieId) {
         return movieDao.getMovieByMovieId(movieId);
     }
+
+    public MutableLiveData<List<Movie>> getMovies() {
+        return mMovies;
+    }
+
+
 
     // WatchList operations
 

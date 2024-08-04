@@ -33,7 +33,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListViewHolder> 
         Movie movie = movies.get(position);
         holder.title.setText(movie.getTitle());
         Glide.with(holder.itemView.getContext())
-                .load("https://image.tmdb.org/t/p/w500/" + movie.getPoster())
+                .load("https://image.tmdb.org/t/p/w500/" + movie.getPosterPath())
                 .into(holder.movieImage);
     }
 
