@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String MAIN_ACTIVITY_USER_ID = "com.example.movielistapplication.MAIN_ACTIVITY_USER_ID";
     private static final String SAVED_INSTANCE_STATE_USERID_KEY = "com.example.movielistapplication.SAVED_INSTANCE_STATE_USERID_KEY";
 
-
     private ActivityMainBinding binding;
     private ActivityMainAdminLayoutBinding adminBinding;
     private MovieListRepository repository;
@@ -41,16 +40,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Checks if the user is an admin and inflates the appropriate layout.
-        if (user != null && user.isAdmin()) {
-            adminBinding = ActivityMainAdminLayoutBinding.inflate(getLayoutInflater());
-            setContentView(adminBinding.getRoot());
-
-        } else {
-            binding = ActivityMainBinding.inflate(getLayoutInflater());
-            setContentView(binding.getRoot());
-        }
 
         repository = MovieListRepository.getRepository(getApplication());
         loginUser(savedInstanceState); // call to method for logging in
@@ -69,16 +58,6 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("");
         }
 
-        // Sets the click listener for the browse movies button for both user types.
-        binding.browseMoviesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = BrowseMoviesActivity.browseMoviesIntentFactory(getApplicationContext());
-                startActivity(intent);
-            }
-        });
-
-
 
     }
 
@@ -94,7 +73,8 @@ public class MainActivity extends AppCompatActivity {
                 Context.MODE_PRIVATE);
         loggedInUserId = sharedPreferences.getInt(getString(R.string.preference_userId_key), LOGGED_OUT);
 
-        if (loggedInUserId == LOGGED_OUT & savedInstanceState != null && savedInstanceState.containsKey(SAVED_INSTANCE_STATE_USERID_KEY)) {
+        if (loggedInUserId == LOGGED_OUT & savedInstanceState != null && savedInstanceState
+                .containsKey(SAVED_INSTANCE_STATE_USERID_KEY)) {
             loggedInUserId = savedInstanceState.getInt(SAVED_INSTANCE_STATE_USERID_KEY, LOGGED_OUT);
         }
         if (loggedInUserId == LOGGED_OUT) {
@@ -107,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
         userObserver.observe(this, user -> {
             this.user = user;
             if (this.user != null) {
-                // Changes the greeting TextView message to include the user's name.
-                binding.greetingTextView.setText(String.format("Hello, %s", user.getUsername()));
+                // Calls method to change the UI based on the user's role (admin or user).
+                changeUIForUserLandingPage();
                 invalidateOptionsMenu();
             }
         });
@@ -167,7 +147,8 @@ public class MainActivity extends AppCompatActivity {
      * This allows the user to stay logged in even if the app is closed.
      */
     private void updateSharedPreference() {
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(getString(R.string.preference_file_key),
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(
+                getString(R.string.preference_file_key),
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor sharedPrefEditor = sharedPreferences.edit();
         sharedPrefEditor.putInt(getString(R.string.preference_userId_key), loggedInUserId);
@@ -183,6 +164,41 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
         return intent;
+    }
+
+
+    /**
+     * Changes the UI based on the user's role.
+     * If the user is an admin, they will see the admin layout.
+     * If the user is not an admin, they will see the default user layout.
+     */
+    private void changeUIForUserLandingPage() {
+        if (user != null && user.isAdmin()) {
+            adminBinding = ActivityMainAdminLayoutBinding.inflate(getLayoutInflater());
+            setContentView(adminBinding.getRoot());
+            adminBinding.browseMoviesButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = BrowseMoviesActivity.browseMoviesIntentFactory(
+                            getApplicationContext());
+                    startActivity(intent);
+                }
+            });
+            adminBinding.greetingTextView.setText(String.format("Hello, %s", user.getUsername()));
+
+        } else if (user != null) {
+            binding = ActivityMainBinding.inflate(getLayoutInflater());
+            setContentView(binding.getRoot());
+            binding.browseMoviesButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = BrowseMoviesActivity.browseMoviesIntentFactory(
+                            getApplicationContext());
+                    startActivity(intent);
+                }
+            });
+            binding.greetingTextView.setText(String.format("Hello, %s", user.getUsername()));
+        }
     }
 
 
