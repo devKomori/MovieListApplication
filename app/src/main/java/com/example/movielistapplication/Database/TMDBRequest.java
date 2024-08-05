@@ -10,4 +10,7 @@ public interface TMDBRequest {
   @GET("/3/search/movie")
   Call<MovieApiJsonResponse> getMovies(@Query("query") String query,
     @Query("api_key") String api_key);
+
+  @GET("/3/movie/popular")
+  Call<MovieApiJsonResponse> getPopularMovies(@Query("api_key") String api_key);
 }

@@ -58,8 +58,7 @@ public class Movie {
           rating = (int) (movieList.get(0).getVote_average() * 10);
           releaseDate = movieList.get(0).getRelease_date();
           /* TODO: Use TMDB API to actually convert these IDs to a string of genres.
-           * https://api.themoviedb.org/3/genre/movie/list?language=en gives us an array of pairs of
-           * id & name
+           * https://api.themoviedb.org/3/genre/movie/list gives us an array of pairs of id & name
            */
           genres = Arrays.toString(movieList.get(0).getGenre_ids());
         }
@@ -70,6 +69,16 @@ public class Movie {
         // TODO: Display error message to user
       }
     });
+  }
+
+  public Movie(MovieApiData movieApiData) {
+    this.movieId = movieApiData.getId();
+    this.poster = movieApiData.getPoster_path();
+    this.title = movieApiData.getTitle();
+    this.description = movieApiData.getOverview();
+    this.rating = (int) (movieApiData.getVote_average() * 10);
+    this.releaseDate = movieApiData.getRelease_date();
+    this.genres = Arrays.toString(movieApiData.getGenre_ids());
   }
 
   // Auto-generated getter and setter methods.
