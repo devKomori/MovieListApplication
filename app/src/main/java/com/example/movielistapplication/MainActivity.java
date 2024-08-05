@@ -184,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+            //TODO: You have to inflate the other buttons for the admin layout here
             adminBinding.greetingTextView.setText(String.format("Hello, %s", user.getUsername()));
 
         } else if (user != null) {
@@ -197,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+            //TODO: You have to inflate the other button for the default user layout here
             binding.greetingTextView.setText(String.format("Hello, %s", user.getUsername()));
         }
     }
