@@ -2,19 +2,16 @@ package com.example.movielistapplication;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Address;
+
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
+
 import android.widget.SearchView;
 
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,7 +29,7 @@ import com.example.movielistapplication.viewholders.MovieListViewModel;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -83,7 +80,6 @@ public class BrowseMoviesActivity extends AppCompatActivity {
      */
     private void GetRetrofitResponse() {
         TMDBRequest tmdbRequest = ApiRetrofitClient.getRetrofit().create(TMDBRequest.class);
-
         Call<MovieApiJsonResponse> responseCall = tmdbRequest.getPopularMovies(
                 TMDBRequest.API_KEY, "1");
         responseCall.enqueue(new Callback<MovieApiJsonResponse>() {
@@ -97,9 +93,9 @@ public class BrowseMoviesActivity extends AppCompatActivity {
                     adapter.setMovies(movies);
                 } else {
                     try {
-                        Log.v("Response Code", "Error" + response.errorBody().string());
+                        Log.v("Response Code", "Error body" + response.errorBody().string());
                     } catch (IOException e) {
-                        throw new RuntimeException(e);
+                        Log.e(TAG, "Error IOException", e);
                     }
                 }
             }
@@ -162,8 +158,8 @@ public class BrowseMoviesActivity extends AppCompatActivity {
                 }
             }
             @Override
-            public void onFailure(Call<MovieApiJsonResponse> call, Throwable t) {
-                Log.e(TAG, "API call failed", t);
+            public void onFailure(Call<MovieApiJsonResponse> call, Throwable throwable) {
+                Log.e(TAG, "API call failed", throwable);
             }
         });
     }

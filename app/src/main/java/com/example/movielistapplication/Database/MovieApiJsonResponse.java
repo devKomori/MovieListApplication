@@ -1,7 +1,6 @@
 package com.example.movielistapplication.Database;
 
 import com.example.movielistapplication.Database.entities.Movie;
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
