@@ -17,13 +17,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_scrollFlags="scroll|enterAlways">
-        
+        app:layout_scrollFlags="scroll|enterAlways"
+        android:backgroundTint="@color/main_color">
+
         <SearchView
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:id="@+id/movieSearchView"
-            android:queryHint="Search for movies"/>
+            android:queryHint="Search for movies"
+            android:searchIcon="@drawable/baseline_search_24"
+            android:searchHintIcon="@drawable/baseline_search_24"
+            android:closeIcon="@drawable/baseline_close_24"
+            android:theme="@style/CustomSearchView"
+
+            />
 
     </androidx.appcompat.widget.Toolbar>
 

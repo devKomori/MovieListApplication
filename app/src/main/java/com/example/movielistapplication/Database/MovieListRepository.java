@@ -13,19 +13,12 @@ import com.example.movielistapplication.Database.DAOS.MovieDao;
 import com.example.movielistapplication.Database.DAOS.UserDao;
 import com.example.movielistapplication.Database.entities.Movie;
 import com.example.movielistapplication.Database.entities.User;
-import com.example.movielistapplication.R;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 /**
@@ -37,7 +30,6 @@ public class MovieListRepository {
     private static MovieListRepository repository;
     private UserDao userDao;
     private MovieDao movieDao;
-    private MutableLiveData<List<Movie>> mMovies = new MutableLiveData<>();
     //    TODO: Person implementing DAOs below are responsible for adding and implementing their methods.
 //    private WatchlistDao watchlistDao;
 
@@ -51,7 +43,6 @@ public class MovieListRepository {
         MovieListDatabase db = MovieListDatabase.getDatabase(application);
         this.userDao = db.userDao();
         this.movieDao = db.movieDao();
-        this.mMovies = new MutableLiveData<>();
     }
 
 
@@ -155,9 +146,6 @@ public class MovieListRepository {
         return movieDao.getMovieByMovieId(movieId);
     }
 
-    public MutableLiveData<List<Movie>> getMovies() {
-        return mMovies;
-    }
 
 
 
