@@ -28,12 +28,19 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListViewHolder> 
     }
 
 
+    /**
+     * Binds the data to the views in MovieListViewHolder.
+     * The method is used by RecyclerView to display the data at the specified position.
+     * The movie's poster image is loaded using Glide.
+     */
     @Override
     public void onBindViewHolder(@NonNull MovieListViewHolder holder, int position) {
         Movie movie = movies.get(position);
+        holder.rating.setText(String.valueOf(movie.getVoteAverage()));
+        holder.releaseDate.setText(movie.getReleaseDate());
         holder.title.setText(movie.getTitle());
         Glide.with(holder.itemView.getContext())
-                .load("https://image.tmdb.org/t/p/w500/" + movie.getPoster())
+                .load("https://image.tmdb.org/t/p/w500/" + movie.getPosterPath())
                 .into(holder.movieImage);
     }
 
@@ -48,4 +55,12 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListViewHolder> 
         this.movies = movies;
         notifyDataSetChanged();
     }
+
+
+    public void addMovies(List<Movie> movies) {
+        this.movies.addAll(movies);
+        notifyDataSetChanged();
+    }
+
+
 }

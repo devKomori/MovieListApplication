@@ -6,7 +6,7 @@
         android:id="@+id/logoutMenuItem"
         android:title=""
         app:showAsAction="ifRoom"
-        android:icon="@drawable/baseline_menu_24">
+        android:icon="@drawable/updated_menu_icon">
 
         <menu>
 

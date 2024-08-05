@@ -1,8 +1,12 @@
 package com.example.movielistapplication.Database;
+
+
+
 import android.app.Application;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+
 
 import com.example.movielistapplication.Database.DAOS.MovieDao;
 import com.example.movielistapplication.Database.DAOS.UserDao;
@@ -13,6 +17,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+
 
 
 /**
@@ -63,6 +68,7 @@ public class MovieListRepository {
         }
         return null;
     }
+
 
 
     // User operations
@@ -138,6 +144,9 @@ public class MovieListRepository {
     public LiveData<Movie> getMovieByMovieId(int movieId) {
         return movieDao.getMovieByMovieId(movieId);
     }
+
+
+
 
     // WatchList operations
 

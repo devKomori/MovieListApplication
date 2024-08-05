@@ -80,8 +80,8 @@ public abstract class MovieListDatabase extends RoomDatabase {
 
                 MovieDao movieDao = INSTANCE.movieDao();
                 movieDao.deleteAll();
-                Movie testMovie = new Movie("Test Movie");
-                movieDao.insert(testMovie);
+
+
             });
         }
     };

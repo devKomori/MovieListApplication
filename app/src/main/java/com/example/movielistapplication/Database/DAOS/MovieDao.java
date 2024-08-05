@@ -39,6 +39,6 @@ public interface MovieDao {
 
 
   // Get a Movie via its movie id
-  @Query("SELECT * FROM " + MovieListDatabase.MOVIE_TABLE + " WHERE movieId == :movieId")
+  @Query("SELECT * FROM " + MovieListDatabase.MOVIE_TABLE + " WHERE id == :movieId")
   LiveData<Movie> getMovieByMovieId(int movieId);
 }

@@ -1,19 +1,38 @@
 package com.example.movielistapplication.Database;
 
-import com.google.gson.annotations.Expose;
+import com.example.movielistapplication.Database.entities.Movie;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class MovieApiJsonResponse {
 
-  @SerializedName("results")
-  @Expose
-  private MovieApiData[] moviesArray;
+  @SerializedName("page")
+  private int page;
 
-  public MovieApiData[] getMoviesArray() {
-    return moviesArray;
+  @SerializedName("total_pages")
+  private int totalPages;
+
+  @SerializedName("results")
+  private List<Movie> results;
+
+  @SerializedName("total_results")
+  private int totalResults;
+
+
+  public int getPage() {
+    return page;
   }
 
-  public void setMoviesArray(MovieApiData[] moviesArray) {
-    this.moviesArray = moviesArray;
+  public int getTotalPages() {
+    return totalPages;
+  }
+
+  public List<Movie> getResults() {
+    return results;
+  }
+
+  public int getTotalResults() {
+    return totalResults;
   }
 }

@@ -7,7 +7,20 @@ import retrofit2.http.Query;
 public interface TMDBRequest {
   String API_KEY = "e083a654cb4a233d677e4f54c3379249";
 
+  @GET("/3/movie/popular")
+  Call<MovieApiJsonResponse> getPopularMovies(
+          @Query("api_key") String key,
+          @Query("page") String page
+  );
+
+
   @GET("/3/search/movie")
-  Call<MovieApiJsonResponse> getMovies(@Query("query") String query,
-    @Query("api_key") String api_key);
+  Call<MovieApiJsonResponse> searchMovies(
+          @Query("api_key") String key,
+          @Query("query") String query,
+          @Query("page") String page
+
+  );
+
+
 }
