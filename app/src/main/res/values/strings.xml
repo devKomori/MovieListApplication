@@ -21,4 +21,11 @@
     <string name="create_account">Create Account</string>
     <string name="user_name">Username</string>
     <string name="movie_title">Movie Title</string>
+    <string name="manage_users">Manage Users</string>
+    <string name="make_admin">Make Admin</string>
+    <string name="delete_user">Delete User</string>
+    <string name="movie_poster">Movie poster</string>
+    <string name="release_date">Release Date</string>
+    <string name="rating">Rating</string>
+    <string name="add_to_watchlist">Add to Watchlist</string>
 </resources>
