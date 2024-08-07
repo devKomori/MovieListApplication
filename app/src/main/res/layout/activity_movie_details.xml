@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/main_color"
+  tools:context=".MovieDetailsActivity">
+
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/movieItemConstraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="190dp"
+    android:layout_marginTop="50dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:background="@color/dark_blue_editText"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <ImageView
+      android:id="@+id/ratingStarImageView"
+      android:layout_width="20dp"
+      android:layout_height="20dp"
+      android:layout_marginTop="30dp"
+      android:layout_marginBottom="30dp"
+      android:background="@drawable/rate_star_24"
+      app:layout_constraintBottom_toTopOf="@id/calendarImageView"
+      app:layout_constraintStart_toStartOf="@id/guideLineForMovieItem"
+      app:layout_constraintTop_toBottomOf="@id/movieNameTextViewForMovieItem" />
+
+    <ImageView
+      android:id="@+id/calendarImageView"
+      android:layout_width="20dp"
+      android:layout_height="20dp"
+      android:layout_marginTop="30dp"
+      android:layout_marginBottom="30dp"
+      android:background="@drawable/baseline_calendar_month_24"
+      app:layout_constraintBottom_toBottomOf="@id/movieItemConstraintLayout"
+      app:layout_constraintStart_toEndOf="@id/guideLineForMovieItem"
+      app:layout_constraintTop_toBottomOf="@id/ratingTextView" />
+
+    <TextView
+      android:id="@+id/ratingTextView"
+      android:textStyle="bold"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="5dp"
+      android:text="@string/rating"
+      android:textColor="@color/white"
+      android:textSize="15sp"
+      app:layout_constraintEnd_toEndOf="@id/movieItemConstraintLayout"
+      app:layout_constraintStart_toEndOf="@id/ratingStarImageView"
+      app:layout_constraintTop_toTopOf="@id/ratingStarImageView" />
+
+    <TextView
+      android:id="@+id/movieNameTextViewForMovieItem"
+      android:textStyle="bold"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="30dp"
+      android:layout_marginStart="5dp"
+      android:text="@string/movie_title"
+      android:textColor="@color/white"
+      android:textSize="15sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="@id/guideLineForMovieItem"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+      android:id="@+id/releaseDateTextView"
+      android:textStyle="bold"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="5dp"
+      android:text="@string/release_date"
+      android:textColor="@color/white"
+      android:textSize="15sp"
+      app:layout_constraintEnd_toEndOf="@id/movieItemConstraintLayout"
+      app:layout_constraintStart_toEndOf="@id/calendarImageView"
+      app:layout_constraintTop_toTopOf="@id/calendarImageView" />
+
+    <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/guideLineForMovieItem"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_end="230dp" />
+
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/imgRoot"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="7dp"
+    android:layout_marginStart="10dp"
+
+    app:layout_constraintBottom_toBottomOf="@id/movieItemConstraintLayout"
+    app:layout_constraintStart_toStartOf="@id/movieItemConstraintLayout">
+
+    <ImageView
+      android:id="@+id/movieImageViewForMoviePoster"
+      android:layout_width="130dp"
+      android:layout_height="175dp"
+      android:background="@color/white"
+      android:contentDescription="@string/movie_poster"
+      android:scaleType="fitXY"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:srcCompat="@drawable/ic_launcher_background" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/movieDetailsConstraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:background="@color/dark_blue_editText"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="@id/movieItemConstraintLayout"
+    app:layout_constraintTop_toBottomOf="@id/movieItemConstraintLayout"/>
+
+  <TextView
+    android:id="@+id/movieDetailsOverviewTextView"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_margin="5dp"
+    android:textColor="@color/white"
+    android:textSize="20sp"
+    android:textStyle="bold"
+    app:layout_constraintBottom_toBottomOf="@id/movieDetailsConstraintLayout"
+    app:layout_constraintEnd_toEndOf="@id/movieDetailsConstraintLayout"
+    app:layout_constraintStart_toStartOf="@id/movieDetailsConstraintLayout"
+    app:layout_constraintTop_toTopOf="@+id/movieDetailsConstraintLayout" />
+
+  <Button
+    android:id="@+id/browseMoviesButton"
+    android:layout_width="300dp"
+    android:layout_height="50dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="10dp"
+    android:background="@drawable/blue_button_background"
+    android:text="@string/add_to_watchlist"
+    android:textAllCaps="false"
+    android:textColor="@color/white"
+    android:textSize="18sp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/movieDetailsConstraintLayout"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
