@@ -41,4 +41,18 @@ public interface MovieDao {
   // Get a Movie via its movie id
   @Query("SELECT * FROM " + MovieListDatabase.MOVIE_TABLE + " WHERE id == :movieId")
   LiveData<Movie> getMovieByMovieId(int movieId);
+
+  // Get all Movies in the database
+  @Query("SELECT * FROM " + MovieListDatabase.MOVIE_TABLE + " ORDER BY title")
+  List<Movie> getAllMoviesAsList();
+
+
+  // Get a Movie via its title
+  @Query("SELECT * FROM " + MovieListDatabase.MOVIE_TABLE + " WHERE title == :title")
+  Movie getMovieByTitleAsMovie(String title);
+
+
+  // Get a Movie via its movie id
+  @Query("SELECT * FROM " + MovieListDatabase.MOVIE_TABLE + " WHERE id == :movieId")
+  Movie getMovieByMovieIdAsMovie(int movieId);
 }
