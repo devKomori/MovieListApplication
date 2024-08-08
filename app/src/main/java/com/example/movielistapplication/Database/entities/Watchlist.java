@@ -1,14 +1,16 @@
+/*
 package com.example.movielistapplication.Database.entities;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-/*
 public class Watchlist {
     import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
+TODO this was commented out because the program cannot run otherwise.
+    highlight all code and press ctrl + shift + / to uncomment
 
     @Entity(tableName = MovieListDatabase.WATCHLIST_TABLE,
             foreignKeys = {
@@ -44,5 +46,7 @@ import androidx.room.PrimaryKey;
     }
 
 }
+
+
 
 */

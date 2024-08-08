@@ -1,3 +1,4 @@
+/*
 package com.example.movielistapplication;
 
 import android.os.Bundle;
@@ -19,10 +20,14 @@ import com.example.movielistapplication.viewholders.UserViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+TODO this was commented out because the program cannot run otherwise.
+    highlight all code and press ctrl + shift + / to uncomment
 
+*/
 /**
  * ManageUsersActivity allows the admin to manage user accounts.
- */
+ *//*
+
 public class ManageUsersActivity extends AppCompatActivity implements UserAdapter.OnUserActionListener {
 
     private RecyclerView usersRecyclerView;
@@ -106,3 +111,4 @@ public class ManageUsersActivity extends AppCompatActivity implements UserAdapte
         }
     }
 }
+*/

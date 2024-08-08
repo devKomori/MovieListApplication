@@ -1,3 +1,4 @@
+/*
 package com.example.movielistapplication;
 
 import android.content.Intent;
@@ -8,15 +9,22 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+TODO this was commented out because the program cannot run otherwise.
+    highlight all code and press ctrl + shift + / to uncomment
 
+*/
 /**
  * AdminControlsActivity is the activity for admin users to access admin controls.
- */
+ *//*
+
+
 public class AdminControlsActivity extends AppCompatActivity {
 
-    /**
+    */
+/**
      * Called when the activity is first created.
-     */
+     *//*
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,3 +45,4 @@ public class AdminControlsActivity extends AppCompatActivity {
         });
     }
 }
+*/

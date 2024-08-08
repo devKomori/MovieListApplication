@@ -38,9 +38,23 @@ public class Movie {
     @SerializedName("vote_count")
     private Integer voteCount;
 
-    public Movie(String title, String posterPath) {
-        this.title = title;
+    public Movie(Integer id, Boolean adult, String backdropPath, String originalLanguage,
+                 String originalTitle, String overview, Double popularity, String posterPath,
+                 String releaseDate, String title, Boolean video, Double voteAverage,
+                 Integer voteCount) {
+        this.id = id;
+        this.adult = adult;
+        this.backdropPath = backdropPath;
+        this.originalLanguage = originalLanguage;
+        this.originalTitle = originalTitle;
+        this.overview = overview;
+        this.popularity = popularity;
         this.posterPath = posterPath;
+        this.releaseDate = releaseDate;
+        this.title = title;
+        this.video = video;
+        this.voteAverage = voteAverage;
+        this.voteCount = voteCount;
     }
 
 
