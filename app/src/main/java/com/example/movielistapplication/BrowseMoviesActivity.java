@@ -56,7 +56,7 @@ public class BrowseMoviesActivity extends AppCompatActivity {
     GetRetrofitResponse();
     MovieSearchView();
     setupRecyclerView();
-    setupViewModel();
+    //setupViewModel(); // We don't want this since we want to browse TMDB's movies, not ours
 
     OnListItemClick onListItemClick = new OnListItemClick() {
       @Override
@@ -96,8 +96,8 @@ public class BrowseMoviesActivity extends AppCompatActivity {
         TMDBRequest.API_KEY, "1");
     responseCall.enqueue(new Callback<MovieApiJsonResponse>() {
       @Override
-      public void onResponse(Call<MovieApiJsonResponse> call,
-          Response<MovieApiJsonResponse> response) {
+      public void onResponse(@NonNull Call<MovieApiJsonResponse> call,
+          @NonNull Response<MovieApiJsonResponse> response) {
         if (response.code() == 200) {
           Log.v("Response Code", "the response code is: " + response.body().toString());
 
@@ -113,7 +113,7 @@ public class BrowseMoviesActivity extends AppCompatActivity {
       }
 
       @Override
-      public void onFailure(Call<MovieApiJsonResponse> call, Throwable throwable) {
+      public void onFailure(@NonNull Call<MovieApiJsonResponse> call, @NonNull Throwable throwable) {
         Log.e(TAG, "API call failed", throwable);
       }
     });
@@ -153,8 +153,8 @@ public class BrowseMoviesActivity extends AppCompatActivity {
 
     responseCall.enqueue(new Callback<MovieApiJsonResponse>() {
       @Override
-      public void onResponse(Call<MovieApiJsonResponse> call,
-          Response<MovieApiJsonResponse> response) {
+      public void onResponse(@NonNull Call<MovieApiJsonResponse> call,
+          @NonNull Response<MovieApiJsonResponse> response) {
         if (response.code() == 200) {
           List<Movie> movies = response.body().getResults();
           if (page == 1) {
@@ -173,7 +173,7 @@ public class BrowseMoviesActivity extends AppCompatActivity {
       }
 
       @Override
-      public void onFailure(Call<MovieApiJsonResponse> call, Throwable throwable) {
+      public void onFailure(@NonNull Call<MovieApiJsonResponse> call, @NonNull Throwable throwable) {
         Log.e(TAG, "API call failed", throwable);
       }
     });
