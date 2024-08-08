@@ -125,6 +125,15 @@ public class MovieListRepository {
     }
 
     /**
+     *  Deletes ALL Movies from the database asynchronously.
+     */
+    public void deleteAllMovies() {
+        MovieListDatabase.databaseWriteExecutor.execute(() -> {
+            movieDao.deleteAll();
+        });
+    }
+
+    /**
      *  Retrieves all Movies from the database.
      */
     public LiveData<List<Movie>> getAllMovies() {

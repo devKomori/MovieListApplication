@@ -5,6 +5,7 @@ import androidx.room.PrimaryKey;
 
 import com.example.movielistapplication.Database.MovieListDatabase;
 import com.google.gson.annotations.SerializedName;
+import java.util.Objects;
 
 @Entity(tableName = MovieListDatabase.MOVIE_TABLE)
 public class Movie {
@@ -160,6 +161,32 @@ public class Movie {
 
     public void setVoteCount(Integer voteCount) {
         this.voteCount = voteCount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Movie movie = (Movie) o;
+        return Objects.equals(id, movie.id) && Objects.equals(adult, movie.adult)
+            && Objects.equals(backdropPath, movie.backdropPath) && Objects.equals(
+            originalLanguage, movie.originalLanguage) && Objects.equals(originalTitle,
+            movie.originalTitle) && Objects.equals(overview, movie.overview)
+            && Objects.equals(popularity, movie.popularity) && Objects.equals(
+            posterPath, movie.posterPath) && Objects.equals(releaseDate, movie.releaseDate)
+            && Objects.equals(title, movie.title) && Objects.equals(video,
+            movie.video) && Objects.equals(voteAverage, movie.voteAverage)
+            && Objects.equals(voteCount, movie.voteCount);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, adult, backdropPath, originalLanguage, originalTitle, overview,
+            popularity, posterPath, releaseDate, title, video, voteAverage, voteCount);
     }
 }
 
