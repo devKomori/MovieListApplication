@@ -1,6 +1,7 @@
 package com.example.movielistapplication.Database;
 
 import com.example.movielistapplication.Database.entities.Movie;
+import com.example.movielistapplication.Genre;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -19,6 +20,9 @@ public class MovieApiJsonResponse {
   @SerializedName("total_results")
   private int totalResults;
 
+  @SerializedName("genres")
+  private List<Genre> genres;
+
 
   public int getPage() {
     return page;
@@ -34,5 +38,9 @@ public class MovieApiJsonResponse {
 
   public int getTotalResults() {
     return totalResults;
+  }
+
+  public List<Genre> getGenres() {
+    return genres;
   }
 }

@@ -27,6 +27,7 @@ import com.example.movielistapplication.databinding.ActivityBrowseMoviesBinding;
 import com.example.movielistapplication.viewholders.MovieListAdapter;
 import com.example.movielistapplication.viewholders.MovieListViewModel;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,11 +41,13 @@ import retrofit2.Response;
 public class BrowseMoviesActivity extends AppCompatActivity {
 
   private static final String TAG = "BrowseMoviesActivity";
+  private static final String BROWSE_MOVIES_GENRE_TO_BROWSE = "com.example.movielistapplication.BROWSE_MOVIES_API_REQUEST";
   private ActivityBrowseMoviesBinding binding;
   private MovieListRepository repository;
   private MovieListAdapter adapter;
   private MovieListViewModel viewModel;
   private String movieQuery;
+  private Genre genreToBrowse;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -92,8 +95,16 @@ public class BrowseMoviesActivity extends AppCompatActivity {
    */
   private void GetRetrofitResponse() {
     TMDBRequest tmdbRequest = ApiRetrofitClient.getRetrofit().create(TMDBRequest.class);
-    Call<MovieApiJsonResponse> responseCall = tmdbRequest.getPopularMovies(
-        TMDBRequest.API_KEY, "1");
+    Call<MovieApiJsonResponse> responseCall;
+    genreToBrowse = new Gson().fromJson(getIntent().getStringExtra(BROWSE_MOVIES_GENRE_TO_BROWSE),
+        Genre.class);
+    if (genreToBrowse != null) {
+      responseCall = tmdbRequest.getMoviesByGenre(TMDBRequest.API_KEY,
+          String.valueOf(genreToBrowse.getId()), "1");
+    } else {
+      responseCall = tmdbRequest.getPopularMovies(
+          TMDBRequest.API_KEY, "1");
+    }
     responseCall.enqueue(new Callback<MovieApiJsonResponse>() {
       @Override
       public void onResponse(@NonNull Call<MovieApiJsonResponse> call,
@@ -113,7 +124,8 @@ public class BrowseMoviesActivity extends AppCompatActivity {
       }
 
       @Override
-      public void onFailure(@NonNull Call<MovieApiJsonResponse> call, @NonNull Throwable throwable) {
+      public void onFailure(@NonNull Call<MovieApiJsonResponse> call,
+          @NonNull Throwable throwable) {
         Log.e(TAG, "API call failed", throwable);
       }
     });
@@ -148,9 +160,12 @@ public class BrowseMoviesActivity extends AppCompatActivity {
    */
   private void searchApiForMovies(String query, int page) {
     TMDBRequest tmdbRequest = ApiRetrofitClient.getRetrofit().create(TMDBRequest.class);
-    Call<MovieApiJsonResponse> responseCall = tmdbRequest.searchMovies(
-        TMDBRequest.API_KEY, query, String.valueOf(page));
-
+    Call<MovieApiJsonResponse> responseCall;
+    if (genreToBrowse != null) {
+      responseCall = tmdbRequest.getMoviesByGenre(TMDBRequest.API_KEY, query, String.valueOf(page));
+    } else {
+      responseCall = tmdbRequest.searchMovies(TMDBRequest.API_KEY, query, String.valueOf(page));
+    }
     responseCall.enqueue(new Callback<MovieApiJsonResponse>() {
       @Override
       public void onResponse(@NonNull Call<MovieApiJsonResponse> call,
@@ -173,7 +188,8 @@ public class BrowseMoviesActivity extends AppCompatActivity {
       }
 
       @Override
-      public void onFailure(@NonNull Call<MovieApiJsonResponse> call, @NonNull Throwable throwable) {
+      public void onFailure(@NonNull Call<MovieApiJsonResponse> call,
+          @NonNull Throwable throwable) {
         Log.e(TAG, "API call failed", throwable);
       }
     });
@@ -200,7 +216,11 @@ public class BrowseMoviesActivity extends AppCompatActivity {
 
         if (!recyclerView.canScrollVertically(1)) {
           int nextPage = adapter.getItemCount() / 20 + 1; // TMDB lists 20 movies per page
-          searchApiForMovies(movieQuery, nextPage);
+          if (genreToBrowse != null) {
+            searchApiForMovies(String.valueOf(genreToBrowse.getId()), nextPage);
+          } else {
+            searchApiForMovies(movieQuery, nextPage);
+          }
         }
       }
     });
@@ -211,6 +231,15 @@ public class BrowseMoviesActivity extends AppCompatActivity {
   public static Intent browseMoviesIntentFactory(Context context) {
     return new Intent(context, BrowseMoviesActivity.class);
   }
+
+
+  /* Overloaded Intent factory for when we want to browse a genre instead of popular movies*/
+  public static Intent browseMoviesIntentFactory(Context context, Genre genreToBrowse) {
+    Intent intent = new Intent(context, BrowseMoviesActivity.class);
+    intent.putExtra(BROWSE_MOVIES_GENRE_TO_BROWSE, new Gson().toJson(genreToBrowse));
+    return intent;
+  }
+
 
   public interface OnListItemClick {
 
