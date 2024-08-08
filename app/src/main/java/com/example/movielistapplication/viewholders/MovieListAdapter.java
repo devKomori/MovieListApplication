@@ -16,6 +16,7 @@ import com.example.movielistapplication.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListViewHolder> {
 
@@ -38,7 +39,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull MovieListViewHolder holder, int position) {
         Movie movie = movies.get(position);
-        holder.rating.setText(String.valueOf(movie.getVoteAverage()));
+        holder.rating.setText(String.format(Locale.US, "%.1f", movie.getVoteAverage()));
         holder.releaseDate.setText(movie.getReleaseDate());
         holder.title.setText(movie.getTitle());
         Glide.with(holder.itemView.getContext())
