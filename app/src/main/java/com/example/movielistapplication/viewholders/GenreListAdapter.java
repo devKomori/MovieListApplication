@@ -5,7 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.movielistapplication.BrowseMoviesActivity.OnListItemClick;
+import com.example.movielistapplication.BrowseGenresActivity.OnListItemClick;
 import com.example.movielistapplication.Genre;
 import com.example.movielistapplication.R;
 import java.util.ArrayList;

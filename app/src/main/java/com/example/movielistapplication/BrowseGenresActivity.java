@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,6 +37,16 @@ public class BrowseGenresActivity extends AppCompatActivity {
 
     GetRetrofitResponse();
     setupRecyclerView();
+
+    OnListItemClick onListItemClick = new OnListItemClick() {
+      @Override
+      public void onClick(View view, int position) {
+        Intent intent = BrowseMoviesActivity.browseMoviesIntentFactory(getApplicationContext(),
+            adapter.getGenreAtPosition(position));
+        startActivity(intent);
+      }
+    };
+    adapter.setClickListener(onListItemClick);
   }
 
   /**
@@ -63,7 +74,8 @@ public class BrowseGenresActivity extends AppCompatActivity {
       }
 
       @Override
-      public void onFailure(@NonNull Call<MovieApiJsonResponse> call, @NonNull Throwable throwable) {
+      public void onFailure(@NonNull Call<MovieApiJsonResponse> call,
+          @NonNull Throwable throwable) {
         Log.e(TAG, "API call failed", throwable);
       }
     });
@@ -85,5 +97,10 @@ public class BrowseGenresActivity extends AppCompatActivity {
 
   public static Intent browseGenresIntentFactory(Context context) {
     return new Intent(context, BrowseGenresActivity.class);
+  }
+
+  public interface OnListItemClick {
+
+    void onClick(View view, int position);
   }
 }
