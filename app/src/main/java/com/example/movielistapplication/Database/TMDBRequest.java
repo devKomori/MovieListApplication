@@ -22,5 +22,14 @@ public interface TMDBRequest {
 
   );
 
+  @GET("/3/discover/movie")
+  Call<MovieApiJsonResponse> getMoviesByGenre(
+    @Query("api_key") String key,
+    @Query("with_genres") String genres
+  );
 
+  @GET("/3/genre/movie/list")
+  Call<MovieApiJsonResponse> getGenres(
+    @Query("api_key") String key
+  );
 }
