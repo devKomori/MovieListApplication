@@ -12,7 +12,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.movielistapplication.Database.entities.User;
 
-/*
+/* TODO this was commented out because the program cannot run otherwise.
+    highlight all code and press ctrl + shift + / to uncomment
 public class CreateAccountActivity extends AppCompatActivity {
     private UserViewModel userViewModel;
     private EditText usernameEditText, passwordEditText, confirmPasswordEditText;

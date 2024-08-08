@@ -1,3 +1,4 @@
+/*
 package com.example.movielistapplication.viewholders;
 
 import android.app.Application;
@@ -14,6 +15,8 @@ import com.example.movielistapplication.Database.entities.Movie;
 import com.example.movielistapplication.Database.entities.User;
 
 import java.util.List;
+TODO this was commented out because the program cannot run otherwise.
+    highlight all code and press ctrl + shift + / to uncomment
 
 public class UserViewModel extends AndroidViewModel {
 
@@ -48,3 +51,4 @@ public class UserViewModel extends AndroidViewModel {
         update(user);
     }
 }
+*/
