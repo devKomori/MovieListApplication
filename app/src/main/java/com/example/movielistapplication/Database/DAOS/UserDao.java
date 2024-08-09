@@ -45,6 +45,20 @@ public interface UserDao {
     @Query("SELECT * FROM " + MovieListDatabase.USER_TABLE + " WHERE userId == :userId")
     LiveData<User> getUserByUserId(int userId);
 
+    /* Query to get all users in the database. */
+    @Query("SELECT * FROM " + MovieListDatabase.USER_TABLE + " ORDER BY username")
+    List<User> getAllUsersAsList();
+
+
+    /* Query to get a user by their username */
+    @Query("SELECT * FROM " + MovieListDatabase.USER_TABLE + " WHERE username == :username")
+    User getUserByUserNameAsUser(String username);
+
+
+    /* Query to get a user by their user id */
+    @Query("SELECT * FROM " + MovieListDatabase.USER_TABLE + " WHERE userId == :userId")
+    User getUserByUserIdAsUser(int userId);
+
     @Update
     void update(User user);
 }
