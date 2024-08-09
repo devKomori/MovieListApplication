@@ -14,9 +14,7 @@ import java.util.List;
         void insert(Watchlist watchlist);
 
         @Query("SELECT * FROM watchlist WHERE userId = :userId")
-        default List<Watchlist> getWatchlistForUser(int userId) {
-            return null;
-        }
+        List<Watchlist> getWatchlistForUser(int userId);
 
         @Query("DELETE FROM watchlist WHERE userId = :userId AND movieId = :movieId")
         void deleteFromWatchlist(int userId, int movieId);

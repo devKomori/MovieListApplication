@@ -1,5 +1,8 @@
 package com.example.movielistapplication;
 
+import static com.example.movielistapplication.Database.MovieListDatabase.*;
+import static com.example.movielistapplication.Database.MovieListRepository.repository;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -56,10 +59,10 @@ public class CreateAccountActivity extends AppCompatActivity {
         }
 
         // Add user to the database
-        AppDatabase db = AppDatabase.getInstance(this);
+        MovieListDatabase db = MovieListDatabase.getInstance(this);
         UserDao userDao = db.userDao();
         User newUser = new User(username, password);
-        userDao.insert(newUser);
+        repository.insertUser(newUser);
 
         // Navigate to the main page
         Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);

@@ -89,6 +89,10 @@ public abstract class MovieListDatabase extends RoomDatabase {
         }
     };
 
+    public static MovieListDatabase getInstance(CreateAccountActivity createAccountActivity) {
+        return null;
+    }
+
 
     public abstract UserDao userDao();
     public abstract MovieDao movieDao();

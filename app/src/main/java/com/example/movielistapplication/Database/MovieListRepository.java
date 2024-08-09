@@ -21,7 +21,7 @@ import java.util.concurrent.Future;
  */
 public class MovieListRepository {
     public static final String TAG = "MovieListRepository";
-    private static MovieListRepository repository;
+    public static MovieListRepository repository;
     private UserDao userDao;
     private MovieDao movieDao;
     //    TODO: Person implementing DAOs below are responsible for adding and implementing their methods.
