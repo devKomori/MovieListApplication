@@ -30,4 +30,5 @@
   <string name="add_to_watchlist">Add to Watchlist</string>
   <string name="genre">Genre</string>
   <string name="browse_genres">Browse Genres</string>
+  <string name="remove_from_watchlist">Remove from Watchlist</string>
 </resources>

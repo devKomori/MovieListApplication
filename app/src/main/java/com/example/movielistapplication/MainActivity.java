@@ -191,7 +191,13 @@ public class MainActivity extends AppCompatActivity {
           startActivity(intent);
         }
       });
-      //TODO: You have to inflate the other buttons for the admin layout here
+      adminBinding.viewWatchlistButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          Intent intent = ViewWatchlistActivity.viewWatchlistIntentFactory(getApplicationContext());
+          startActivity(intent);
+        }
+      });
       adminBinding.greetingTextView.setText(String.format("Hello, %s", user.getUsername()));
 
     } else if (user != null) {
@@ -212,7 +218,13 @@ public class MainActivity extends AppCompatActivity {
           startActivity(intent);
         }
       });
-      //TODO: You have to inflate the other button for the default user layout here
+      binding.viewWatchlistButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          Intent intent = ViewWatchlistActivity.viewWatchlistIntentFactory(getApplicationContext());
+          startActivity(intent);
+        }
+      });
       binding.greetingTextView.setText(String.format("Hello, %s", user.getUsername()));
     }
   }
