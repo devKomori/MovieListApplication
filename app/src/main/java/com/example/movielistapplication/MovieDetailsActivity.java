@@ -44,6 +44,13 @@ public class MovieDetailsActivity extends AppCompatActivity {
         repository.insertMovie(displayedMovie);
       }
     });
+    //TODO: "Remove from Watchlist" button functionality goes inside this listener's onClick()
+    binding.removeFromWatchlistButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        repository.delete(displayedMovie);
+      }
+    });
   }
 
   public static Intent movieDetailsIntentFactory(Context context, Movie movie) {

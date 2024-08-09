@@ -154,8 +154,26 @@
     android:textAllCaps="false"
     android:textColor="@color/white"
     android:textSize="18sp"
-    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintBottom_toTopOf="@id/removeFromWatchlistButton"
     app:layout_constraintTop_toBottomOf="@id/movieDetailsConstraintLayout"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    />
+
+  <Button
+    android:id="@+id/removeFromWatchlistButton"
+    android:layout_width="300dp"
+    android:layout_height="50dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="10dp"
+    android:background="@drawable/blue_button_background"
+    android:text="@string/remove_from_watchlist"
+    android:textAllCaps="false"
+    android:textColor="@color/white"
+    android:textSize="18sp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/addToWatchlistButton"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     />
